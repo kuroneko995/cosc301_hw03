@@ -39,7 +39,7 @@ void list_append(const char *name, struct node **head) {
 
 }
 
-struct node *list_reverse(struct node *head) {
+void list_reverse(struct node **head) {
     // your code here
 
 }
