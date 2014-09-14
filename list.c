@@ -84,12 +84,13 @@ int main(int argc, char **argv) {
 
     printf("Printing matches for the string \"a\"\n");
     list_print_matches("a", head);
-    list_clear(head);
 
     if (head) {
         printf("Now we'll delete the first element\n");
         list_delete(head->name, &head);
     }
+
+    list_clear(head);
 
     return 0;
 }
