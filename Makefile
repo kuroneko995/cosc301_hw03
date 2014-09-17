@@ -1,7 +1,7 @@
 .PHONY: clean
 
 CC=clang
-CFLAGS=-std=c99 -Wall -g 
+CFLAGS=-Wall -g 
 
 all: problem1 problem2
 
