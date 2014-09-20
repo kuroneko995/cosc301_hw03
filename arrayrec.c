@@ -15,14 +15,36 @@ struct record {
 
 int search_by_name(struct record records[], int num_records, 
                    const char *str, int start_index) {
-    // your code here
-
+    struct record temp;
+    for (int i = start_index; i < num_records; i++) {
+        temp = records[i];
+        if (strcasestr(temp.name,str) != NULL) {
+            return i;
+        }
+    } 
+    return -1;
 }
 
 int *get_matches(struct record records[], int num_records,
                  const char *str) {
     // your code here
+    int *match=malloc((num_records+1) * sizeof(int));
+    int index = 1; // where to put matching index. reserve 0 for array length
+    int start_index = 0;  // index used for searching   
+    while (start_index < num_records) {
+        int temp = search_by_name(records, num_records, str, start_index);
+        if (temp == -1) { //no (more )matches found, ends    
+            break;
+        } else {
+            match[index] = temp;
+            index++;
+            start_index = temp + 1; // start from the one after the match
+        }
+    
+    }
 
+    match[0] = index-1;
+    return match;
 }
 
 
