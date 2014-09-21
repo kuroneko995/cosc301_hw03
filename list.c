@@ -45,7 +45,7 @@ int list_delete(const char *name, struct node **head) {
     while (pointer != NULL) {   
 
         temp_node = *pointer;
-        printf("Currently comparing: %s\n",temp_node.name);
+        //printf("Currently comparing: %s\n",temp_node.name);
         if (strcasecmp(temp_node.name, name) != NULL) { // match found
             *ptr_before = temp_node.next;
             free(pointer);
@@ -81,8 +81,38 @@ void list_reverse(struct node **head) {
 }
 
 void list_sort(struct node **head) {
-    // your code here
-
+    struct node extra_head = {"temp",*head};
+    struct node *base = *head;      
+    struct node *base_prev = &extra_head;  
+    struct node *check;            
+    struct node *check_prev;        
+    struct node *min_prev = NULL;      
+    struct node *min;       
+    struct node *temp = NULL;
+    while (base != NULL) {
+        min_prev = base_prev; // set current as min        
+        min = base;
+        check_prev = base;
+        check = check_prev -> next; 
+        while (check != NULL) {  // Check till end of list
+            if (strcasecmp(check -> name, min -> name) < 0) {
+                min_prev = check_prev;
+                min = check;
+            }
+            check_prev = check;             
+            check = check_prev -> next;     
+        }
+        // move min node to the front
+        if (min != base) {
+            temp = min -> next;       
+            min -> next = base_prev -> next;
+            base_prev -> next = min;
+            min_prev -> next = temp;
+        }
+        base_prev = min;
+        base = base_prev -> next;
+    }
+    *head = extra_head.next;
 }
 
 #ifndef AUTOTEST
